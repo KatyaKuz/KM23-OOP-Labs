@@ -13,11 +13,6 @@ class StringCalculatorTest {
 
         Assertions.assertEquals(0,StringCalculator.add(""));
 
-        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
-            StringCalculator.add("1,2,3");
-        });
-        Assertions.assertEquals("Кількість додатків не може бути більше двох",thrown.getMessage());
-
         IllegalArgumentException thrown1 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
             StringCalculator.add(",");
         });

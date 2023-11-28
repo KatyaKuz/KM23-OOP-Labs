@@ -22,9 +22,6 @@ public class StringCalculator {
         String[] dod=MySplit(numbers, ",");
         if (numbers.length()>0){
             array_num=dod.length;
-            if (array_num>2){
-                throw new IllegalArgumentException("Кількість додатків не може бути більше двох");
-            }
             for (int i=0; i<array_num; i++){
                 if (dod[i].length()>0) {
                     try {
