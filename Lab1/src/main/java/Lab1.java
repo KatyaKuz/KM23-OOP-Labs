@@ -4,8 +4,8 @@ public class Lab1 {
     public static void main(String[] args) {
         StringCalculator strcal = new StringCalculator();
         Scanner scan=new Scanner(System.in);
-        System.out.println("Введіть вираз для розрахунку, використовуючи роздільники [,] : ");
-        String s=scan.nextLine();
+        System.out.println("Введіть вираз для розрахунку, використовуючи роздільники [,] та [\\n]: ");
+        String s=scan.nextLine().replace("\\n", "\n");
         try {
             System.out.println("Результат: "+strcal.add(s));
         }

@@ -19,7 +19,7 @@ public class StringCalculator {
     public int add(String numbers) throws IllegalArgumentException{
         int ret_num=0;
         int array_num;
-        String[] dod=MySplit(numbers, ",");
+        String[] dod=MySplit(numbers, ",\n");
         if (numbers.length()>0){
             array_num=dod.length;
             for (int i=0; i<array_num; i++){
