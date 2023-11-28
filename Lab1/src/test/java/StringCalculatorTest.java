@@ -59,6 +59,67 @@ class StringCalculatorTest {
             StringCalculator.add("1/n2");
         });
         Assertions.assertEquals("Аргумент 1 помилкове значення \"1/n2\"",thrown9.getMessage());
+
+        IllegalArgumentException thrown10 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//\n1,2");
+        });
+        Assertions.assertEquals("Помилковий формат роздільників.\n" +
+                " Правильний формат: //[delimiter]\\n[numbers...]\n" +
+                " Третій символ роздільник, четвертий символ нової строки. ",thrown10.getMessage());
+
+        IllegalArgumentException thrown11 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;.\n1;2");
+        });
+        Assertions.assertEquals("Помилковий формат роздільників.\n" +
+                " Правильний формат: //[delimiter]\\n[numbers...]\n" +
+                " Третій символ роздільник, четвертий символ нової строки. ",thrown11.getMessage());
+
+        IllegalArgumentException thrown12 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;1;2");
+        });
+        Assertions.assertEquals("Помилковий формат роздільників.\n" +
+                " Правильний формат: //[delimiter]\\n[numbers...]\n" +
+                " Третій символ роздільник, четвертий символ нової строки. ",thrown12.getMessage());
+
+        IllegalArgumentException thrown13 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("/;\n1;2");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"/;\"",thrown13.getMessage());
+
+        IllegalArgumentException thrown14 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("\\;\n1;2");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"\\;\"",thrown14.getMessage());
+
+        IllegalArgumentException thrown15 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;\n1,2");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"1,2\"",thrown15.getMessage());
+
+        IllegalArgumentException thrown16 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;\n1;2\n3");
+        });
+        Assertions.assertEquals("Аргумент 2 помилкове значення \"2\n3\"",thrown16.getMessage());
+
+        IllegalArgumentException thrown17 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"//;\"",thrown17.getMessage());
+
+        Assertions.assertEquals(0,StringCalculator.add("//;\n"));
+
+        Assertions.assertEquals(1,StringCalculator.add("//;\n1"));
+
+        IllegalArgumentException thrown18 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;\n1;");
+        });
+        Assertions.assertEquals("Аргумент 2 помилкове значення \"\" - пусте значення",thrown18.getMessage());
+
+        IllegalArgumentException thrown19 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;\n;");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"\" - пусте значення",thrown19.getMessage());
+
     }
 
 

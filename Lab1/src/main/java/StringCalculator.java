@@ -19,8 +19,27 @@ public class StringCalculator {
     public int add(String numbers) throws IllegalArgumentException{
         int ret_num=0;
         int array_num;
-        String[] dod=MySplit(numbers, ",\n");
-        if (numbers.length()>0){
+        String regex=",\n";
+        String numbers2;
+        if (numbers.length()<4){
+            numbers2=numbers;
+        }
+        else{
+            if (numbers.substring(0,2).equals("//")){
+                if(numbers.substring(3,4).equals("\n")){
+                    regex=numbers.substring(2,3);
+                    numbers2=numbers.substring(4);
+                }
+                else{
+                    throw new IllegalArgumentException("Помилковий формат роздільників.\n Правильний формат: //[delimiter]\\n[numbers...]\n Третій символ роздільник, четвертий символ нової строки. ");
+                }
+            }
+            else{
+                numbers2=numbers;
+            }
+        }
+        String[] dod=MySplit(numbers2, regex);
+        if (numbers2.length()>0){
             array_num=dod.length;
             for (int i=0; i<array_num; i++){
                 if (dod[i].length()>0) {
