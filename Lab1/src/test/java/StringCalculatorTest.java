@@ -63,23 +63,20 @@ class StringCalculatorTest {
         IllegalArgumentException thrown10 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
             StringCalculator.add("//\n1,2");
         });
-        Assertions.assertEquals("Помилковий формат роздільників.\n" +
-                " Правильний формат: //[delimiter]\\n[numbers...]\n" +
-                " Третій символ роздільник, четвертий символ нової строки. ",thrown10.getMessage());
+        Assertions.assertEquals("Помилковий формат роздільників.\n Правильний формат: //<delimiter>\\n<numbers...>\n Третій символ роздільник, четвертий символ нової строки," +
+                "\nабо //[delimiter]\\n<numbers...>, наприклад //[***]\\n1***2***3 ",thrown10.getMessage());
 
         IllegalArgumentException thrown11 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
             StringCalculator.add("//;.\n1;2");
         });
-        Assertions.assertEquals("Помилковий формат роздільників.\n" +
-                " Правильний формат: //[delimiter]\\n[numbers...]\n" +
-                " Третій символ роздільник, четвертий символ нової строки. ",thrown11.getMessage());
+        Assertions.assertEquals("Помилковий формат роздільників.\n Правильний формат: //<delimiter>\\n<numbers...>\n Третій символ роздільник, четвертий символ нової строки," +
+                "\nабо //[delimiter]\\n<numbers...>, наприклад //[***]\\n1***2***3 ",thrown11.getMessage());
 
         IllegalArgumentException thrown12 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
             StringCalculator.add("//;1;2");
         });
-        Assertions.assertEquals("Помилковий формат роздільників.\n" +
-                " Правильний формат: //[delimiter]\\n[numbers...]\n" +
-                " Третій символ роздільник, четвертий символ нової строки. ",thrown12.getMessage());
+        Assertions.assertEquals("Помилковий формат роздільників.\n Правильний формат: //<delimiter>\\n<numbers...>\n Третій символ роздільник, четвертий символ нової строки," +
+                "\nабо //[delimiter]\\n<numbers...>, наприклад //[***]\\n1***2***3 ",thrown12.getMessage());
 
         IllegalArgumentException thrown13 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
             StringCalculator.add("/;\n1;2");
@@ -142,6 +139,55 @@ class StringCalculatorTest {
         Assertions.assertEquals(1999,StringCalculator.add("//;\n1000;999;1001"));
 
         Assertions.assertEquals(0,StringCalculator.add("//;\n1200;1999;1001"));
+
+        Assertions.assertEquals(6,StringCalculator.add("//[\n1[2[3"));
+
+        Assertions.assertEquals(6,StringCalculator.add("//]\n1]2]3"));
+
+        Assertions.assertEquals(6,StringCalculator.add("//[***]\n1***2***3"));
+
+        Assertions.assertEquals(7,StringCalculator.add("//[abc]\n1abc2abc4"));
+
+        Assertions.assertEquals(6,StringCalculator.add("//[*]\n1*2*3"));
+
+        IllegalArgumentException thrown23 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[]\n1,2");
+        });
+        Assertions.assertEquals("Довжина роздільника нуль.",thrown23.getMessage());
+
+        IllegalArgumentException thrown24 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[***]\n1**2");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"1**2\"",thrown24.getMessage());
+
+        IllegalArgumentException thrown25 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[***]\n1***2***");
+        });
+        Assertions.assertEquals("Аргумент 3 помилкове значення \"\" - пусте значення",thrown25.getMessage());
+
+        IllegalArgumentException thrown26 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[***]\\n1***2");
+        });
+        Assertions.assertEquals("Помилковий формат роздільників.\n" +
+                " Правильний формат: //<delimiter>\\n<numbers...>\n" +
+                " Третій символ роздільник, четвертий символ нової строки,\n" +
+                "або //[delimiter]\\n<numbers...>, наприклад //[***]\\n1***2***3 ",thrown26.getMessage());
+
+        IllegalArgumentException thrown27 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[**]\n1***2");
+        });
+        Assertions.assertEquals("Аргумент 2 помилкове значення \"*2\"",thrown27.getMessage());
+
+        IllegalArgumentException thrown28 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[**]\n1****2");
+        });
+        Assertions.assertEquals("Аргумент 2 помилкове значення \"\" - пусте значення",thrown28.getMessage());
+
+        Assertions.assertEquals(6,StringCalculator.add("//[*\n]\n1*\n2*\n3"));
+
+        Assertions.assertEquals(6,StringCalculator.add("//[\n]\n1\n2\n3"));
+
+
     }
 
 
