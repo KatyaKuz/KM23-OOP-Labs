@@ -120,6 +120,21 @@ class StringCalculatorTest {
         });
         Assertions.assertEquals("Аргумент 1 помилкове значення \"\" - пусте значення",thrown19.getMessage());
 
+        IllegalArgumentException thrown20 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("1,-2,3,-4,-5,6");
+        });
+        Assertions.assertEquals("Недозволені від'ємні числа: -2, -4, -5",thrown20.getMessage());
+
+        IllegalArgumentException thrown21 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("1\n-2,3,-4,-5,6");
+        });
+        Assertions.assertEquals("Недозволені від'ємні числа: -2, -4, -5",thrown21.getMessage());
+
+        IllegalArgumentException thrown22 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//;\n1;-2;3;-4;-5;6");
+        });
+        Assertions.assertEquals("Недозволені від'ємні числа: -2, -4, -5",thrown22.getMessage());
+
     }
 
 

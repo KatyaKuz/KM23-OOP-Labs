@@ -19,6 +19,9 @@ public class StringCalculator {
     public int add(String numbers) throws IllegalArgumentException{
         int ret_num=0;
         int array_num;
+        int num;
+        String serr="";
+        boolean err=false;
         String regex=",\n";
         String numbers2;
         if (numbers.length()<4){
@@ -44,7 +47,19 @@ public class StringCalculator {
             for (int i=0; i<array_num; i++){
                 if (dod[i].length()>0) {
                     try {
-                        ret_num = ret_num + Integer.parseInt(dod[i]);
+                        num=Integer.parseInt(dod[i]);
+                        if (num<0){
+                            err=true;
+                            if (serr.length()>0){
+                                serr=serr+", ";
+                            }
+                            serr=serr+dod[i];
+                        }
+                        else{
+                            if (!err){
+                                ret_num = ret_num + num;
+                            }
+                        }
                     } catch (NumberFormatException ex) {
                         throw new IllegalArgumentException("Аргумент " + (i + 1) + " помилкове значення \"" + dod[i] + "\"");
                     }
@@ -52,6 +67,9 @@ public class StringCalculator {
                 else{
                     throw new IllegalArgumentException("Аргумент " + (i + 1) + " помилкове значення \"\" - пусте значення");
                 }
+            }
+            if (err){
+                throw new IllegalArgumentException("Недозволені від'ємні числа: " + serr);
             }
         }
         return ret_num;
