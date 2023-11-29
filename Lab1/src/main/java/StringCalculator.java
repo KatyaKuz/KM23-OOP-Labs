@@ -21,6 +21,16 @@ public class StringCalculator {
         String wrk="";
         boolean is_reg=false;
         if(r.length>0){
+            for (int i=0; i<r.length-1; i++){
+                for(int j=i+1; j<r.length; j++){
+                    if (r[i].length() < r[j].length()) {
+                        wrk=r[i];
+                        r[i]=r[j];
+                        r[j]=wrk;
+                    }
+                }
+            }
+            wrk="";
             for (int i=0; i<s.length(); i++){
                 is_reg=false;
                 for (int j=0; j<r.length; j++){

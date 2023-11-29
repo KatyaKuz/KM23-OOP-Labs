@@ -208,6 +208,34 @@ class StringCalculatorTest {
 
         Assertions.assertEquals(10,StringCalculator.add("//[,][;][[]\n1[2,3;4"));
 
+        Assertions.assertEquals(10,StringCalculator.add("//[,,,][;][..]\n1..2,,,3;4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[...][;][..]\n1..2...3;4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[..][;][...]\n1..2...3;4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[.][..][...]\n1...2..3.4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[.][..][...]\n1.2..3...4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[.][..][...]\n1..2.3...4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[..][.][...]\n1..2.3...4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[...][..][.]\n1..2.3...4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[..][...][.][...]\n1..2.3...4"));
+
+        IllegalArgumentException thrown32 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[..][.][...]\n1..2.3....4");
+        });
+        Assertions.assertEquals("Аргумент 4 помилкове значення \"\" - пусте значення",thrown32.getMessage());
+
+        Assertions.assertEquals(15,StringCalculator.add("//[ab][cd][ed][f]\n1ab2ed3cd4f5"));
+
+        Assertions.assertEquals(15,StringCalculator.add("//[ab][ad][cd][f]\n1ab2ad3cd4f5"));
+
+        Assertions.assertEquals(21,StringCalculator.add("//[ab][ad][abc][cd][f]\n1ab2ad3cd4f5abc6"));
 
     }
 
