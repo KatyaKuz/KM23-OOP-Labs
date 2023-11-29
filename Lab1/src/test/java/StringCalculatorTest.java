@@ -135,6 +135,13 @@ class StringCalculatorTest {
         });
         Assertions.assertEquals("Недозволені від'ємні числа: -2, -4, -5",thrown22.getMessage());
 
+        Assertions.assertEquals(1999,StringCalculator.add("1000,999,1001"));
+
+        Assertions.assertEquals(0,StringCalculator.add("1200,1999,1001"));
+
+        Assertions.assertEquals(1999,StringCalculator.add("//;\n1000;999;1001"));
+
+        Assertions.assertEquals(0,StringCalculator.add("//;\n1200;1999;1001"));
     }
 
 

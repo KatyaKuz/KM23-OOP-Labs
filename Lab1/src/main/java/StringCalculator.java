@@ -57,7 +57,9 @@ public class StringCalculator {
                         }
                         else{
                             if (!err){
-                                ret_num = ret_num + num;
+                                if(num<=1000) {
+                                    ret_num = ret_num + num;
+                                }
                             }
                         }
                     } catch (NumberFormatException ex) {
