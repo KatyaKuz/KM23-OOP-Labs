@@ -16,28 +16,34 @@ public class StringCalculator {
         String[] ret =  rez.toArray(new String[0]);
         return ret;
     }
-    private String[] MySplitLong(String s, String r){
+    private String[] MySplitArray(String s, String[] r){
         ArrayList<String> rez=new ArrayList<>();
         String wrk="";
-        if(r.length()>0){
+        boolean is_reg=false;
+        if(r.length>0){
             for (int i=0; i<s.length(); i++){
-                if ((s.length()-i)>=r.length()){
-                    if (s.substring(i,i+r.length()).equals(r)){
-                        rez.add(wrk);
-                        wrk="";
-                        i=i+r.length()-1;
+                is_reg=false;
+                for (int j=0; j<r.length; j++){
+                    if (r[j].length()==0){
+                        throw new IllegalArgumentException("Довжина роздільника нуль.");
                     }
-                    else{
-                        wrk=wrk+s.charAt(i);
+                    if ((s.length()-i)>=r[j].length()){
+                        if (s.substring(i,i+r[j].length()).equals(r[j])){
+                            rez.add(wrk);
+                            wrk="";
+                            i=i+r[j].length()-1;
+                            is_reg=true;
+                            break;
+                        }
                     }
                 }
-                else{
+                if (!is_reg){
                     wrk=wrk+s.charAt(i);
                 }
             }
         }
         else{
-            throw new IllegalArgumentException("Довжина роздільника нуль.");
+            throw new IllegalArgumentException("Кількість роздільників нуль.");
         }
         rez.add(wrk);
         String[] ret =  rez.toArray(new String[0]);
@@ -54,6 +60,8 @@ public class StringCalculator {
         boolean err=false;
         boolean long_regex=false;
         String regex=",\n";
+        //ArrayList<String> regex_list=new ArrayList<>();
+        String[] regex_list=new String[0];
         String numbers2;
         if (numbers.length()<4){
             numbers2=numbers;
@@ -64,6 +72,7 @@ public class StringCalculator {
                 regex=numbers.substring(3,i_n);
                 numbers2=numbers.substring(i_n+2);
                 if(regex.length()!=1){
+                    regex_list=MySplitArray(numbers.substring(3,i_n), new String[]{"]["});
                     long_regex=true;
                 }
             } else {
@@ -83,7 +92,7 @@ public class StringCalculator {
         }
         String[] dod;
         if (long_regex){
-            dod=MySplitLong(numbers2, regex);
+            dod=MySplitArray(numbers2, regex_list);
         }
         else{
             dod=MySplit(numbers2, regex);

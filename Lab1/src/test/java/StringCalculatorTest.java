@@ -187,6 +187,27 @@ class StringCalculatorTest {
 
         Assertions.assertEquals(6,StringCalculator.add("//[\n]\n1\n2\n3"));
 
+        Assertions.assertEquals(10,StringCalculator.add("//[,][;][.]\n1.2,3;4"));
+
+        IllegalArgumentException thrown29 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[,][;][.]\n1.2,;4");
+        });
+        Assertions.assertEquals("Аргумент 3 помилкове значення \"\" - пусте значення",thrown29.getMessage());
+
+        IllegalArgumentException thrown30 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[,][][;][.]\n1.2,3;4");
+        });
+        Assertions.assertEquals("Довжина роздільника нуль.",thrown30.getMessage());
+
+        IllegalArgumentException thrown31 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            StringCalculator.add("//[,][;]\n1.2,3;4");
+        });
+        Assertions.assertEquals("Аргумент 1 помилкове значення \"1.2\"",thrown31.getMessage());
+
+        Assertions.assertEquals(10,StringCalculator.add("//[,][;][]]\n1]2,3;4"));
+
+        Assertions.assertEquals(10,StringCalculator.add("//[,][;][[]\n1[2,3;4"));
+
 
     }
 
