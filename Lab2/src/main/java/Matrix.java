@@ -287,7 +287,7 @@ public class Matrix {
             }
         }
         if (table[0].length==m.rows_count()){
-            if(m.cols_count()>0) {
+            if(m.cols_count()==table.length) {
                 t = new double[table.length][m.cols_count()];
                 for (int bc = 0; bc < m.cols_count(); bc++) {
                     for (int ar = 0; ar < table.length; ar++) {
@@ -300,7 +300,7 @@ public class Matrix {
                 }
             }
             else{
-                throw new IllegalArgumentException("Кількість стовпчиків другої матриці повино бути більше нуля.");
+                throw new IllegalArgumentException("Кількість стовпчиків другої матриці повино дорівнювати кількості рядків першої матриці.");
             }
         }
         else{

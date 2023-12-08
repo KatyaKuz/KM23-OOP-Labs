@@ -233,8 +233,8 @@ class MatrixTest {
 
     @Test
     void testMultiplication() {
-        double[][] t1,t11, ts;
-        Matrix mt1, mt11, mt2, mts;
+        double[][] t1,t11, t22, ts;
+        Matrix mt1, mt11, mt2, mt22, mts;
         t1=new double[][] {{111, 112, 113, 114}, {121, 122, 123, 124}, {131, 132, 133, 134}};
         mt1=new Matrix(t1);
         mt2=mt.multiplication(mt1);
@@ -247,10 +247,16 @@ class MatrixTest {
         Assertions.assertFalse(mt.equals(mts));
         t11=new double[][] {{111, 112, 113}, {121, 122, 123}, {131, 132, 133}, {141, 142, 143}};
         mt11=new Matrix(t11);
+        t22=new double[][] {{111, 112, 113}, {121, 122, 123}, {131, 132, 133}};
+        mt22=new Matrix(t22);
         IllegalArgumentException thrown1 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
             mt.multiplication(mt11);
         });
         Assertions.assertEquals("Кількість стовпчиків першої матриці повино дорівнювати кількості рядків другої матриці.",thrown1.getMessage());
+        IllegalArgumentException thrown2 = Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+            mt.multiplication(mt22);
+        });
+        Assertions.assertEquals("Кількість стовпчиків другої матриці повино дорівнювати кількості рядків першої матриці.",thrown2.getMessage());
     }
 
     @Test
